@@ -1,0 +1,27 @@
+<div class="card">
+
+    <div class="card-header">
+        {{ gameTitle }}
+    </div>
+    <div *ngIf="userStories?.length">
+
+        <div class="card-body">
+            <div class="list-group">
+
+                <div class="list-group-item list-group-item-action rounded-0" *ngFor="let userStory of userStories">
+                    {{ userStory.id }} - {{ userStory.title }}
+                    <div>
+                        <span *ngIf="userStory.storyPoints" class="storyPoints">Story Points:
+                            {{ userStory.storyPoints }}</span>
+                        <div class="text-right">
+                            <button class="btn btn-primary " (click)="start(userStory.id)" [disabled] ="gameStarted">Start</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
