@@ -1,10 +1,18 @@
 <div class='row'>
     <div class='col-md-4'>
         <app-userstory-list [userStories]="userStories$ | async"
-        [gameTitle] = "gameTitle$ | async"></app-userstory-list>
+        [gameTitle] = "gameTitle$ | async"
+        [gameStarted] = "gameStarted"
+        (userStoryStarted) = "userStoryStarted($any($event))"
+        
+        ></app-userstory-list>
     </div>
 
     <div class='col-md-8'>
-        Details
+        <app-userstory-detail
+            [userStory] = "userStory$ | async"
+
+            (userStoryCancelled) = "cancel();"
+        ></app-userstory-detail>
     </div>
 </div>

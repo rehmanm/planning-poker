@@ -1,0 +1,45 @@
+<div *ngIf="userStory">
+    <div *ngIf="userStory">
+        <span>User Story - </span> {{ userStory.title }}
+    </div>
+    <div>
+        <span>Description - </span> {{ userStory.description }}
+    </div>
+
+    <div>
+        Story Point: <input type="textbox" />
+        <button class="btn btn-primary">Accept</button>
+        <button class="btn btn-info" (click)="revealed()">Reveal</button>
+        <button class="btn btn-cancel" (click)="cancel()">Cancel</button>
+        
+    </div>
+
+    <div *ngIf="users">
+
+        <div *ngFor="let user of users.sort(compare)">
+
+            <div class="card" style="width: 24%; float:left; margin: 5px;">
+                <div class="card-body" style="text-align: center; height: 200px; vertical-align: middle;">
+                    <div *ngIf="!reveal">
+                        <span *ngIf="user.storyPoint">
+                            <i class="fad fa-check fa-8x font-awesome-color"></i>
+                        </span>
+
+                        <span *ngIf="!user.storyPoint">
+
+                            <i class="fad fa-spinner fa-spin fa-8x font-awesome-color"></i>
+                        </span>
+                    </div>
+                    <div *ngIf="reveal" style="font-size:100px;" class=" font-awesome-color">
+                        {{ user.storyPoint}}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    {{ user.userName }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

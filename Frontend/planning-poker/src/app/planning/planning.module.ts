@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { GameComponent } from './component/game/game.component';
 import { PlanningRoutingModule } from './planning.routing.module';
 import { UserstoryListComponent } from './component/userstory-list/userstory-list.component';
+import { UserstoryDetailComponent } from './component/userstory-detail/userstory-detail.component';
 
 
 
 @NgModule({
-  declarations: [GameComponent, UserstoryListComponent],
+  declarations: [GameComponent, UserstoryListComponent, UserstoryDetailComponent],
   imports: [
     CommonModule,
     PlanningRoutingModule

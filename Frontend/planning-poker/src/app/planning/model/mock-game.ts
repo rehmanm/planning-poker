@@ -12,7 +12,7 @@ export class GameData implements InMemoryDbService  {
                 {
                     id: 18256,
                     title: 'Analysis: Figure out what APIs are currently being called for remote signing. APIs will return the userGUID and PackageGUID',
-                    description: '',
+                    description: 'This is detail of the user story',
                     storyPoints: '3'
                 },
                 {

@@ -3,6 +3,7 @@ import { GameService } from '../../services/game.service';
 import { Game } from '../../model/game';
 import { Subscription, Observable, of } from 'rxjs';
 import { UserStory } from '../../model/userStory';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game',
@@ -15,7 +16,11 @@ export class GameComponent implements OnInit, OnDestroy {
   sub: Subscription;
   gameTitle$: Observable<string>;
   errorMessage: string;
-  userStories$: Observable<UserStory[]>
+  userStories$: Observable<UserStory[]>;
+  gameStarted: boolean;
+
+
+  userStory$: Observable<UserStory>;
 
   constructor(
     private gameService: GameService
@@ -36,6 +41,21 @@ export class GameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  userStoryStarted(id: number) {
+    console.log("event captured", id);
+    this.gameStarted = true;
+
+    this.userStory$ = this.userStories$.pipe(
+      map(userStories => userStories.find(u => u.id === id) )
+    )
+  }
+
+  cancel(): void {
+    this.gameStarted = false;
+    this.userStory$ = null;
+
   }
 
 }

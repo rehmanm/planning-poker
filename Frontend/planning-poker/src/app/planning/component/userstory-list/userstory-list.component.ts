@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserStory } from '../../model/userStory';
+import { User } from '../../model/user';
 
 @Component({
   selector: 'app-userstory-list',
@@ -10,8 +11,11 @@ export class UserstoryListComponent implements OnInit {
 
   @Input() gameTitle: string;
   @Input() userStories: UserStory[];
-  gameStarted: boolean;
+  @Input() gameStarted: boolean;
 
+  @Output() userStoryStarted: EventEmitter<number> = new EventEmitter<number>();
+
+  
   constructor() { 
 
 
@@ -23,8 +27,9 @@ export class UserstoryListComponent implements OnInit {
   }
 
   start(id: number) {
-    console.log("starting id", id)
-    this.gameStarted = true;
+    this.userStoryStarted.emit(id);
   }
+
+  
 
 }
