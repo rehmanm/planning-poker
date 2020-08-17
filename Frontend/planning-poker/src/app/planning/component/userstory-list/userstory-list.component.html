@@ -9,7 +9,7 @@
             <div class="list-group">
 
                 <div class="list-group-item list-group-item-action rounded-0" *ngFor="let userStory of userStories">
-                    {{ userStory.id }} - {{ userStory.title }}
+                    {{ userStory.userStoryId }} - {{ userStory.title }}
                     <div>
                         <span *ngIf="userStory.storyPoints" class="storyPoints">Story Points:
                             {{ userStory.storyPoints }}</span>

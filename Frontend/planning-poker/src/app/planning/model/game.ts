@@ -1,7 +1,7 @@
 import { UserStory } from './userStory';
 
 export interface Game {
-    id: string;
+    gameId: string;
     title: string;
     userStories: UserStory[];
 }

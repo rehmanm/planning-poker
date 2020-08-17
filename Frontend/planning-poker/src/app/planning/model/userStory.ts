@@ -1,6 +1,6 @@
 export interface UserStory {
 
-    id: number;
+    userStoryId: number;
     title: String;
     description: String;
     storyPoints: string;

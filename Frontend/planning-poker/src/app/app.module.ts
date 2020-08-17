@@ -5,8 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { GameData } from './planning/model/mock-game';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PlanningModule } from './planning/planning.module';
+import { BaseUrlInterceptorService } from './services/base-url-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -15,11 +16,15 @@ import { PlanningModule } from './planning/planning.module';
   imports: [
     BrowserModule,    
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(GameData),
+    //HttpClientInMemoryWebApiModule.forRoot(GameData),
     PlanningModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: BaseUrlInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

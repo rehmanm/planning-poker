@@ -29,7 +29,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sub = this.gameService.getGame("1").subscribe({
+    this.sub = this.gameService.getGame("abc").subscribe({
       next: (data: Game) => {
         this.game = data;
         this.gameTitle$ = of(data.title);

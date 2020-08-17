@@ -1,0 +1,9 @@
+.info {
+    font-style: italic;
+}
+.w-24 {
+    width: 24%; float:left; margin: 5px;
+}
+.userStoryPointsCard {
+    text-align: center; height: 200px; vertical-align: middle;
+}

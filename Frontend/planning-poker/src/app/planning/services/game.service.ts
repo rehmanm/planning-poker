@@ -27,8 +27,8 @@ export class GameService {
     )
   }
 
-  getGame(id: string): Observable<Game> {
-    const url = `${this.gameUrl}/${id}`;
+  getGame(gameId: string): Observable<Game> {
+    const url = `${this.gameUrl}/getgame/${gameId}`;
     return this.http.get<Game>(url).pipe(
       tap(data => console.log("loading game", data)),
       catchError(this.handleError)
