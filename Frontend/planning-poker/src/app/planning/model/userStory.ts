@@ -4,5 +4,6 @@ export interface UserStory {
     title: String;
     description: String;
     storyPoints: string;
+    gameId: string;
 
 }

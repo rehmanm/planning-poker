@@ -1,27 +1,22 @@
-# PlanningPoker
+# Planning Poker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+This is Planning Poker application used for Planning.
 
-## Development server
+## Requirements
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Azure Functions
 
-## Code scaffolding
+### Azure SignalR (Serverless)
+Please update the signal r connection string in localsettings.json.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Run Instruction
 
-## Build
+1) npm start in Frontend folder
+2) Run Azure function using visual studio
+3) Mongo Connection String in localsettings.json
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Url
+http://localhost:4200/game
 
-## Running unit tests
+http://localhost:4200/play/:gameId
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
