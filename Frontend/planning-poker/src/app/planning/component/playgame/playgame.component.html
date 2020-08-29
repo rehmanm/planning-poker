@@ -1,7 +1,22 @@
 <p>playgame works!</p>
 
+<form [formGroup]="userForm" (ngSubmit)="start()" *ngIf="!userName">
+    <div class="form-group">
+        <label for="userName">User Name</label>
+        <input type="text"  class="form-control" id="userName" formControlName="userName"  placeholder="Enter User Name" aria-describedby="userNameHelp" required />
+        <small id="userNameHelp" class="form-text text-muted">User name will be used for casting vote</small>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Start</button>
+</form>
+
+<div *ngIf="userName">
+Welcome {{ userName }}
+</div>
 <div *ngIf="userStory">
     <p>User Story: {{ userStory.userStoryId }}</p>
     <p>Title: {{ userStory.title }}</p>
     <p>Description: {{ userStory.description }}</p> 
 </div>
+
+<app-toast></app-toast>

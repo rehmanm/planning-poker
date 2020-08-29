@@ -5,6 +5,8 @@ import { PlanningRoutingModule } from './planning.routing.module';
 import { UserstoryListComponent } from './component/userstory-list/userstory-list.component';
 import { UserstoryDetailComponent } from './component/userstory-detail/userstory-detail.component';
 import { PlaygameComponent } from './component/playgame/playgame.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -12,7 +14,10 @@ import { PlaygameComponent } from './component/playgame/playgame.component';
   declarations: [GameComponent, UserstoryListComponent, UserstoryDetailComponent, PlaygameComponent],
   imports: [
     CommonModule,
-    PlanningRoutingModule
+    PlanningRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class PlanningModule { }

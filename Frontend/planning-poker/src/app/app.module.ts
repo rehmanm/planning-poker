@@ -8,6 +8,8 @@ import { GameData } from './planning/model/mock-game';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PlanningModule } from './planning/planning.module';
 import { BaseUrlInterceptorService } from './services/base-url-interceptor.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,11 @@ import { BaseUrlInterceptorService } from './services/base-url-interceptor.servi
   imports: [
     BrowserModule,    
     HttpClientModule,
+    NgbModule,
     //HttpClientInMemoryWebApiModule.forRoot(GameData),
     PlanningModule,
-    AppRoutingModule,
+    SharedModule,
+    AppRoutingModule
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,
