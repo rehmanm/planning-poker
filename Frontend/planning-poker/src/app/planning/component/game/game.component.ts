@@ -1,10 +1,13 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { GameService } from '../../services/game.service';
 import { Game } from '../../model/game';
-import { Subscription, Observable, of } from 'rxjs';
+import {  Observable, of } from 'rxjs';
 import { UserStory } from '../../model/userStory';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { SignalrService } from '../../services/signalr.service';
+import { State } from 'src/app/store/state';
+import { select, Store } from '@ngrx/store';
+import { PlanningPageActions } from '../../store/actions';
+import { PlanningSelectors } from '../../store/selectors';
 
 @Component({
   selector: 'app-game',
@@ -13,42 +16,42 @@ import { SignalrService } from '../../services/signalr.service';
 })
 export class GameComponent implements OnInit, OnDestroy {
 
-  game: Game;
-  sub: Subscription;
-  gameTitle$: Observable<string>;
   errorMessage: string;
   userStories$: Observable<UserStory[]>;
   gameStarted: boolean;
 
   userStories: UserStory[];
 
-
   userStory$: Observable<UserStory>;
+  game$: Observable<Game>;
 
   constructor(
-    private gameService: GameService,
+    private store: Store<State.State>,
     private signalRService: SignalrService
   ) {
 
   }
 
   ngOnInit(): void {
-    this.sub = this.gameService.getGame("abc").subscribe({
+    this.game$ = this.store.pipe(select(PlanningSelectors.getGame));
+
+    this.game$.subscribe({
       next: (data: Game) => {
-        this.game = data;
-        this.gameTitle$ = of(data.title);
-        this.userStories$ = of(data.userStories);
-        this.userStories = data.userStories;
+        if (data) {
+          this.userStories$ = of(data.userStories);
+          this.userStories = data.userStories;
+        }
       },
       error: err => this.errorMessage = err
     });
 
+
+    this.store.dispatch(PlanningPageActions.LoadGame({ payload: { gameId: "abc" } }))
     this.signalRService.startConnection("abc", "po");
   }
 
   @HostListener('window:unload')
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
     this.signalRService.closeConnection();
   }
 
@@ -71,9 +74,8 @@ export class GameComponent implements OnInit, OnDestroy {
     this.gameStarted = false;
     this.userStory$ = null;
     let u = this.userStories.find(u => u.userStoryId);
-    //u.userStoryId = 0;
 
-    let updatedUserStory = {...u, userStoryId: 0}
+    let updatedUserStory = { ...u, userStoryId: 0 }
 
     this.signalRService.startUserStoryPlay(updatedUserStory);
 

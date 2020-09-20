@@ -1,14 +1,14 @@
-<div class="card">
+<div class="card" *ngIf="game">
 
     <div class="card-header">
-        {{ gameTitle }}
+        {{ game.title }} {{ game.userStories.length }}
     </div>
-    <div *ngIf="userStories?.length">
+    <div *ngIf="game.userStories.length">
 
         <div class="card-body">
             <div class="list-group">
 
-                <div class="list-group-item list-group-item-action rounded-0" *ngFor="let userStory of userStories">
+                <div class="list-group-item list-group-item-action rounded-0" *ngFor="let userStory of game.userStories">
                     {{ userStory.userStoryId }} - {{ userStory.title }}
                     <div>
                         <span *ngIf="userStory.storyPoints" class="storyPoints">Story Points:

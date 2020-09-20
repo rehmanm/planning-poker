@@ -7,6 +7,10 @@ import { UserstoryDetailComponent } from './component/userstory-detail/userstory
 import { PlaygameComponent } from './component/playgame/playgame.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { PlanningReducers } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { PlanningEffects } from './store/effects';
 
 
 
@@ -17,7 +21,9 @@ import { SharedModule } from '../shared/shared.module';
     PlanningRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('game', PlanningReducers.reducer),
+    EffectsModule.forFeature([PlanningEffects.PlanningEffects])
   ]
 })
 export class PlanningModule { }
