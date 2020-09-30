@@ -63,7 +63,7 @@ export class SignalrService {
         })
         ;
 
-        this.hubConnection.on(`playUserStory-${this.gameId}`, data => {
+        this.hubConnection.on(`playUserStory${this.gameId}`, data => {
           console.log("playUserStory", "data", data);          
           this.userStory.next(data);
         });

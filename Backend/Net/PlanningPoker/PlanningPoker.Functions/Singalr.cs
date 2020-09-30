@@ -39,8 +39,9 @@ namespace PlanningPoker.Functions
                         UserId = req.UserId,
                         Action = GroupAction.Add
                     }
-            );
-
+            ); 
+            
+            await signalRGroupActions.FlushAsync();
 
             return new OkResult();
         }
@@ -61,6 +62,7 @@ namespace PlanningPoker.Functions
                 }
             );
 
+            await signalRGroupActions.FlushAsync();
 
             return new OkResult();
         }
@@ -76,7 +78,7 @@ namespace PlanningPoker.Functions
 
             await signalRMessages.AddAsync(new SignalRMessage
             {
-                Target = $"playUserStory-{req.GameId}",
+                Target = $"playUserStory{req.GameId}",
                 Arguments = new[] { req },
                 //GroupName = req.GameId
                 //UserId = "user"
