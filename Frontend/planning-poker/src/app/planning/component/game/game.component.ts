@@ -8,6 +8,7 @@ import { State } from 'src/app/store/state';
 import { select, Store } from '@ngrx/store';
 import { PlanningPageActions } from '../../store/actions';
 import { PlanningSelectors } from '../../store/selectors';
+import { SignalrDefaultService } from '../../services/signalr-default.service';
 
 @Component({
   selector: 'app-game',
@@ -27,7 +28,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<State.State>,
-    private signalRService: SignalrService
+    private signalRDefaultService: SignalrDefaultService
   ) {
 
   }
@@ -47,12 +48,12 @@ export class GameComponent implements OnInit, OnDestroy {
 
 
     this.store.dispatch(PlanningPageActions.LoadGame({ payload: { gameId: "abc" } }))
-    this.signalRService.startConnection("abc", "po");
+    this.signalRDefaultService.startConnection("abc", "po");
   }
 
   @HostListener('window:unload')
   ngOnDestroy(): void {
-    this.signalRService.closeConnection();
+    this.signalRDefaultService.closeConnection();
   }
 
   userStoryStarted(id: number) {
@@ -64,7 +65,7 @@ export class GameComponent implements OnInit, OnDestroy {
     )
 
     let u = this.userStories.find(u => u.userStoryId === id);
-    this.signalRService.startUserStoryPlay(
+    this.signalRDefaultService.startUserStoryPlay(
       u
     )
 
@@ -77,7 +78,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     let updatedUserStory = { ...u, userStoryId: 0 }
 
-    this.signalRService.startUserStoryPlay(updatedUserStory);
+    this.signalRDefaultService.startUserStoryPlay(updatedUserStory);
 
   }
 

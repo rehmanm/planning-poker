@@ -12,11 +12,7 @@ export class BaseUrlInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const fullyQualifiedUrl = `${environment.apiBaseUrl}${req.url}`;
     req = req.clone({
-      url: fullyQualifiedUrl,
-      headers: req.headers.set(
-        `Ocp-Apim-Subscription-Key`,
-        `${environment.functionApiKey}`
-      ),
+      url: fullyQualifiedUrl
     });
 
     return next.handle(req);

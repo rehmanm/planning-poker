@@ -9,7 +9,7 @@ import { Game } from '../model/game';
   providedIn: 'root'
 })
 export class GameService {
-  private gameUrl: string = "api/games";
+  private gameUrl: string = "/games";
   private games: Game[];
 
   constructor(private http: HttpClient) { }

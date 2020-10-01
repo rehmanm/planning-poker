@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SignalrService } from '../../services/signalr.service';
 import { UserStory } from '../../model/userStory';
 import { ToastService } from 'src/app/shared/service/toast.service';
+import { SignalrDefaultService } from '../../services/signalr-default.service';
 
 @Component({
   selector: 'app-playgame',
@@ -17,7 +18,7 @@ export class PlaygameComponent implements OnInit {
   userForm: FormGroup;
   userName: string;
   constructor(private router: ActivatedRoute,
-    private signalrService: SignalrService,
+    private signalrService: SignalrDefaultService,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
     private el: ElementRef) {
