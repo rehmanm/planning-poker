@@ -3,36 +3,34 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Game } from '../model/game';
- 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GameService {
-  private gameUrl: string = "/games";
+  private gameUrl: string = '/games';
   private games: Game[];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getGames(): Observable<Game[]> {
-
-    if(this.games){
+    if (this.games) {
       return of(this.games);
     }
 
     return this.http.get<Game[]>(this.gameUrl).pipe(
-      tap(data => console.log(data)),
-      tap(data => this.games = data),
+      tap((data) => console.log(data)),
+      tap((data) => (this.games = data)),
       catchError(this.handleError)
-    )
+    );
   }
 
   getGame(gameId: string): Observable<Game> {
-    const url = `${this.gameUrl}/getgame/${gameId}`;
+    const url = `${this.gameUrl}/${gameId}`;
     return this.http.get<Game>(url).pipe(
-      tap(data => console.log("loading game", data)),
+      tap((data) => console.log('loading game', data)),
       catchError(this.handleError)
-    )
+    );
   }
 
   private handleError(err) {

@@ -1,6 +1,4 @@
-
 export interface User {
-    userName: string;
-    storyPoint?: string;
-
+  userName: string;
+  storyPoint?: string;
 }

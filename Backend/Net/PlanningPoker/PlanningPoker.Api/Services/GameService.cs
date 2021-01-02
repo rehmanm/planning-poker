@@ -56,5 +56,27 @@ namespace PlanningPoker.Api.Services
 
         }
 
+        public async Task<List<GameResponseModel>> GetAllGame()
+        {
+            var games = await _gameCollection.Find(FilterDefinition<Game>.Empty).ToListAsync();
+
+            List<GameResponseModel> list = new List<GameResponseModel>();
+
+            foreach (Game g in games)
+            {
+                list.Add(
+                    new GameResponseModel
+                    {
+                        Id = g.GameId,
+                        Title = g.Title
+
+                    }
+                );
+            }
+
+
+            return await Task.Run(() => list);
+
+        }
     }
 }

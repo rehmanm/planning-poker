@@ -11,5 +11,8 @@ namespace PlanningPoker.Api.Services
         Task<Game> AddGame(Game game);
 
         Task<GameResponseModel> GetGame(string id);
+
+        Task<List<GameResponseModel>> GetAllGame();
+
     }
 }

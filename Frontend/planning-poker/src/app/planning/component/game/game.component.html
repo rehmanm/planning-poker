@@ -5,7 +5,9 @@
     </div>
 
     <div class='col-md-8'>
-        <app-userstory-detail [userStory]="userStory$ | async" (userStoryCancelled)="cancel();"></app-userstory-detail>
+        <app-userstory-detail [userStory]="userStory$ | async" 
+        [users] ="users"
+        (userStoryCancelled)="cancel();"></app-userstory-detail>
     </div>
 </div>
 <app-toast></app-toast>

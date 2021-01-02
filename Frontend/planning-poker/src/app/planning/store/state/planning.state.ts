@@ -1,12 +1,13 @@
-import { Game } from '../../model/game';
-
+import { Game, User } from '../../model';
 
 export interface GameState {
-    game: Game,
-    error: string
+  game: Game;
+  error: string;
+  users: User[];
 }
 
 export const InitialState: GameState = {
-    game: null,
-    error: ''
-}
+  game: null,
+  error: '',
+  users: [],
+};

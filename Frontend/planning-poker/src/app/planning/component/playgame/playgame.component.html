@@ -16,7 +16,16 @@ Welcome {{ userName }}
 <div *ngIf="userStory">
     <p>User Story: {{ userStory.userStoryId }}</p>
     <p>Title: {{ userStory.title }}</p>
-    <p>Description: {{ userStory.description }}</p> 
+    <p>Description: {{ userStory.description }}</p>
+    <form [formGroup]="storyPointForm" (ngSubmit) = "sendStoryPoint()" >
+        <div class="form-group">
+            <label for="storyPoint">Story Point</label>
+            <input type="text"  class="form-control" id="storyPoint" formControlName="storyPoint"  placeholder="Enter Story Point" aria-describedby="storyPointHelp" required />
+            <small id="storyPointHelp" class="form-text text-muted">Story Points</small>
+    
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>
 
 <app-toast></app-toast>
