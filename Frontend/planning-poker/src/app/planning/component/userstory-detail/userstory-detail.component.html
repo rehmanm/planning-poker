@@ -7,11 +7,10 @@
     </div>
 
     <div>
-        Story Point: <input type="textbox" />
-        <button class="btn btn-primary">Accept</button>
+        Story Point: <input type="textbox" [(ngModel)]="storyPoints" />
+        <button class="btn btn-primary" (click)="accept()">Accept</button>
         <button class="btn btn-info" (click)="revealed()">Reveal</button>
         <button class="btn btn-cancel" (click)="cancel()">Cancel</button>
-
     </div>
 
     <div *ngIf="users">

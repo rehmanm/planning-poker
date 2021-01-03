@@ -3,8 +3,7 @@ import * as signalR from '@aspnet/signalr';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { State } from 'src/app/store/state';
-import { User } from '../model';
-import { UserStory } from '../model/userStory';
+import { UserStory } from '../model';
 import { PlanningPageActions } from '../store/actions';
 
 @Injectable({

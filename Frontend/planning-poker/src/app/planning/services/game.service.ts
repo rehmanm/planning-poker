@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
-import { Game } from '../model/game';
+import { catchError, tap } from 'rxjs/operators';
+import { Game } from '../model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
   private gameUrl: string = '/games';
+  private userStoryUrl: string = '/userStories';
+
   private games: Game[];
 
   constructor(private http: HttpClient) {}
@@ -31,6 +33,12 @@ export class GameService {
       tap((data) => console.log('loading game', data)),
       catchError(this.handleError)
     );
+  }
+
+  updateStoryPoint(userStoryId: number, storyPoints: string) {
+    const url = `${this.userStoryUrl}/${userStoryId}/storyPoint`;
+
+    return this.http.patch(url, { storyPoints });
   }
 
   private handleError(err) {

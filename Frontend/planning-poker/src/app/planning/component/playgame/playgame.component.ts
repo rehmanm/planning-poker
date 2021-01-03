@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastService } from 'src/app/shared/service/toast.service';
 
 import { SignalrDefaultService } from '../../services/signalr-default.service';
-import { UserStory } from '../../model/userStory';
+import { UserStory } from '../../model';
 
 @Component({
   selector: 'app-playgame',
@@ -26,6 +26,7 @@ export class PlaygameComponent implements OnInit, OnDestroy {
 
   storyPointForm: FormGroup;
   storyPoints: number;
+  showStoryPoint: boolean;
 
   constructor(
     private router: ActivatedRoute,
@@ -91,6 +92,8 @@ export class PlaygameComponent implements OnInit, OnDestroy {
     this.signalrDefaultService.sendStoryPoint(
       this.storyPointForm.value['storyPoint']
     );
+    this.showStoryPoint = false;
+    this.storyPointForm.reset();
   }
 
   ngOnInit(): void {
@@ -111,6 +114,7 @@ export class PlaygameComponent implements OnInit, OnDestroy {
       console.log('Updating User Story', u);
       if (u.gameId === this.gameId) {
         this.userStory = u.userStoryId > 0 ? u : null;
+        this.showStoryPoint = u.userStoryId > 0;
       }
     });
   }

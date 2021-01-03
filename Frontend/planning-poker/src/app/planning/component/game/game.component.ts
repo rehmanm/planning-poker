@@ -1,15 +1,13 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { Game } from '../../model/game';
-import { Observable, of, pipe } from 'rxjs';
-import { UserStory } from '../../model/userStory';
+import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { SignalrService } from '../../services/signalr.service';
 import { State } from 'src/app/store/state';
 import { select, Store } from '@ngrx/store';
+
 import { PlanningPageActions } from '../../store/actions';
 import { PlanningSelectors } from '../../store/selectors';
 import { SignalrDefaultService } from '../../services/signalr-default.service';
-import { User } from '../../model';
+import { Game, UserStory, User } from '../../model';
 
 @Component({
   selector: 'app-game',
@@ -33,23 +31,22 @@ export class GameComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.game$ = this.store.pipe(select(PlanningSelectors.getGame));
-
-    this.game$.subscribe({
-      next: (data: Game) => {
+    this.game$ = this.store.pipe(
+      select(PlanningSelectors.getGame),
+      tap((data: Game) => {
         if (data) {
           this.userStories$ = of(data.userStories);
           this.userStories = data.userStories;
+          this.signalRDefaultService.startConnection(data.gameId, 'po', false);
         }
-      },
-      error: (err) => (this.errorMessage = err),
-    });
+      })
+    );
+
+    this.game$.subscribe();
 
     this.store.dispatch(
       PlanningPageActions.LoadGame({ payload: { gameId: 'abc' } })
     );
-
-    //this.users$ = this.store.select(pipe(PlanningSelectors.getUsers));
 
     this.store
       .pipe(
@@ -58,7 +55,6 @@ export class GameComponent implements OnInit, OnDestroy {
         tap(() => console.log('users', this.users))
       )
       .subscribe();
-    this.signalRDefaultService.startConnection('abc', 'po', false);
   }
 
   @HostListener('window:unload')
@@ -87,7 +83,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.signalRDefaultService.startUserStoryPlay(u);
   }
 
-  cancel(): void {
+  done(): void {
     this.gameStarted = false;
     this.userStory$ = null;
     let u = this.userStories.find((u) => u.userStoryId);

@@ -48,6 +48,27 @@ const planningReducer = createReducer(
       ...state,
       users: updatedUser,
     };
+  }),
+  on(PlanningApiActions.UpdateStoryPointSuccessful, (state, { payload }) => {
+    const userStories = [...state.game.userStories];
+    let updatedUserStory = userStories.filter(
+      (userStory) => userStory.userStoryId === payload.userStoryId
+    )[0];
+    updatedUserStory = {
+      ...updatedUserStory,
+      storyPoints: payload.storyPoints,
+    };
+
+    const updatedUserStories = userStories.map((userStory) =>
+      userStory.userStoryId === payload.userStoryId
+        ? updatedUserStory
+        : userStory
+    );
+
+    return {
+      ...state,
+      game: { ...state.game, userStories: updatedUserStories },
+    };
   })
 );
 
