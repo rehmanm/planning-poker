@@ -23,7 +23,7 @@ az signalr key list --name pp-signalr -g planning-poker --output table
 ``` 
 Delete Signal R Resource in Azure
 ```
-az signalr create --name pp-signalr -g planning-poker --sku Free_F1
+az signalr delet --name pp-signalr -g planning-poker
 ``` 
 
 
