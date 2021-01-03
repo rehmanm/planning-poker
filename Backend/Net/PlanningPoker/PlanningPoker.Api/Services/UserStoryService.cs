@@ -25,9 +25,7 @@ namespace PlanningPoker.Api.Services
 
         public async Task<List<UserStory>> GetUserStories(string gameId)
         {
-            List<UserStory> userStories = await _userStoryCollection.Find(x => true).ToListAsync();
-
-            //_userStoryCollection.Fin
+            List<UserStory> userStories = await _userStoryCollection.Find(x => x.GameId == gameId).ToListAsync();
 
             if (!userStories.Any())
             {
@@ -35,6 +33,14 @@ namespace PlanningPoker.Api.Services
             }
 
             return userStories;
+        }
+
+        public async Task<bool> UpdateStoryPoint(int userStoryId, string storyPoints)
+        {
+            var updateDef = Builders<UserStory>.Update.Set(o => o.StoryPoints, storyPoints);
+            var result  = await _userStoryCollection.UpdateOneAsync(x => x.UserStoryId == userStoryId, updateDef);
+
+            return result.MatchedCount > 0;
         }
     }
 }

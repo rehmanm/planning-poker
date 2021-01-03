@@ -8,7 +8,9 @@ namespace PlanningPoker.Api.Services
     {
 
         Task<UserStory> AddUserStory(UserStory userStory);
-
         Task<List<UserStory>> GetUserStories(string gameId);
+        Task<bool> UpdateStoryPoint(int userStoryId, string storyPoints);
+
+
     }
 }

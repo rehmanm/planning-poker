@@ -29,5 +29,17 @@ namespace Planning.Web.Api.Controllers
 
             return new CreatedResult("", responseMessage);
         }
+
+        [HttpPatch]
+        [Route("api/v1/userStories/{userStoryId}/storyPoint")]
+        public async Task<IActionResult> Put_AllGames(int userStoryId, [FromBody] UserStory userStory)
+        {
+            var responseMessage = await _userStoryService.UpdateStoryPoint(userStoryId, userStory.StoryPoints);
+
+            if (responseMessage)
+                return new OkObjectResult("");
+
+            return NotFound();
+        }
     }
 }
