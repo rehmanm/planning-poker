@@ -29,6 +29,7 @@ export class SignalrDefaultService {
     this.userName = userName;
     this.isUser = isUser;
 
+    //TODO: Needs to check this code if required.
     // if (this.hubConnection) {
     //   console.log('state', this.hubConnection.state, this.hubConnection);
     //   this.joinRoom(gameId, userName, isUser);
@@ -46,8 +47,6 @@ export class SignalrDefaultService {
     this.hubConnection.keepAliveIntervalInMilliseconds = 1000;
 
     await this.hubConnection.start();
-
-    this.joinRoom(gameId, userName, isUser);
 
     this.hubConnection.on(`playUserStory`, (data) => {
       console.log('playUserStory', 'data', data);
@@ -87,6 +86,8 @@ export class SignalrDefaultService {
         })
       );
     });
+
+    this.joinRoom(gameId, userName, isUser);
   }
 
   public joinRoom = (gameId: string, userName: string, isUser: boolean) => {

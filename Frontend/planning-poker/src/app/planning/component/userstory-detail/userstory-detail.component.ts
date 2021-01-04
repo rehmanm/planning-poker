@@ -29,6 +29,7 @@ export class UserstoryDetailComponent implements OnInit {
 
   cancel(): void {
     this.done.emit();
+    this.reveal = false;
   }
 
   accept(): void {
@@ -41,6 +42,7 @@ export class UserstoryDetailComponent implements OnInit {
       })
     );
     this.done.emit();
+    this.reveal = false;
     this.storyPoints = '';
   }
 }
