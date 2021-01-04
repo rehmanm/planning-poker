@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError, map, mergeMap } from 'rxjs/operators';
+
 import { ToastService } from 'src/app/shared/service/toast.service';
-import { GameService } from '../../services/game.service';
+
+import { GameService, UserstoryService } from '../../services';
 import { PlanningApiActions, PlanningPageActions } from '../actions';
 
 @Injectable()
@@ -39,7 +41,7 @@ export class PlanningEffects {
     return this.actions$.pipe(
       ofType(PlanningApiActions.UpdateStoryPoint),
       mergeMap((action) =>
-        this.gameService
+        this.uerstoryService
           .updateStoryPoint(
             action.payload.userStoryId,
             action.payload.storyPoints
@@ -77,6 +79,7 @@ export class PlanningEffects {
   constructor(
     private actions$: Actions,
     private gameService: GameService,
+    private uerstoryService: UserstoryService,
     private toastService: ToastService
   ) {}
 }

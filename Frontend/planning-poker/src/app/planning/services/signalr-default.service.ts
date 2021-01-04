@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as signalR from '@aspnet/signalr';
+import * as signalR from '@microsoft/signalr';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { State } from 'src/app/store/state';
@@ -29,9 +29,10 @@ export class SignalrDefaultService {
     this.userName = userName;
     this.isUser = isUser;
 
-    if (this.hubConnection) {
-      this.joinRoom(gameId, userName, isUser);
-    }
+    // if (this.hubConnection) {
+    //   console.log('state', this.hubConnection.state, this.hubConnection);
+    //   this.joinRoom(gameId, userName, isUser);
+    // }
 
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(
@@ -89,6 +90,7 @@ export class SignalrDefaultService {
   }
 
   public joinRoom = (gameId: string, userName: string, isUser: boolean) => {
+    console.log('calling joinRoom');
     this.hubConnection.send('addToGroup', gameId, userName, isUser);
   };
 

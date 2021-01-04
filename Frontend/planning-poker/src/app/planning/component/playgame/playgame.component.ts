@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ToastService } from 'src/app/shared/service/toast.service';
 
-import { SignalrDefaultService } from '../../services/signalr-default.service';
+import { SignalrDefaultService } from '../../services';
 import { UserStory } from '../../model';
 
 @Component({

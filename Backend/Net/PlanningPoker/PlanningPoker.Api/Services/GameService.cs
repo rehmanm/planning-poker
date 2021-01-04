@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using PlanningPoker.Api.Model;
 
@@ -30,52 +32,69 @@ namespace PlanningPoker.Api.Services
 
         public async Task<GameResponseModel> GetGame(string id)
         {
+            var response = await _gameCollection.Aggregate().Match(x => x.GameId == id).Lookup(
+                "userstory", "GameId", "GameId", "UserStories"
+                ).Project(
+                     new BsonDocument
+                        {
+                            { "_id", 0 },
+                            { "GameId", 1 },
+                            { "Title", 1 },
+                            { "UserStories",
+                    new BsonDocument
+                            {
+                                { "UserStoryId", 1 },
+                                { "Title", 1 },
+                                { "Description", 1 },
+                                { "StoryPoints", 1 },
+                                { "GameId", 1 },
 
-            List<Game> games = await _gameCollection.Find<Game>(x => x.GameId == id).ToListAsync();
+                            } }
+                        }).ToListAsync();
 
 
 
-            if (!games.Any())
+            if (!response.Any())
             {
                 return null;
             }
 
+            var res = response.Select(x => BsonSerializer.Deserialize<GameResponseModel>(x)).First();
 
-            List<UserStory> userStories = await _userStoryService.GetUserStories(id);
-
-            Game game = games.First();
-
-            GameResponseModel g = new GameResponseModel()
-            {
-                Id = game.GameId,
-                Title = game.Title,
-                UserStories = userStories 
-            };
-
-            return await Task.Run(() => g);
+            return res;
 
         }
 
         public async Task<List<GameResponseModel>> GetAllGame()
         {
-            var games = await _gameCollection.Find(FilterDefinition<Game>.Empty).ToListAsync();
+            var response = await _gameCollection.Aggregate().Lookup(
+                "userstory", "GameId", "GameId", "UserStories"
+                ).Project(
+                     new BsonDocument
+                        {
+                            { "_id", 0 },
+                            { "GameId", 1 },
+                            { "Title", 1 },
+                            { "UserStories",
+                    new BsonDocument
+                            {
+                                { "UserStoryId", 1 },
+                                { "Title", 1 },
+                                { "Description", 1 },
+                                { "StoryPoints", 1 },
+                                { "GameId", 1 },
+                            } }
+                        }).ToListAsync();
 
-            List<GameResponseModel> list = new List<GameResponseModel>();
 
-            foreach (Game g in games)
+            if (!response.Any())
             {
-                list.Add(
-                    new GameResponseModel
-                    {
-                        Id = g.GameId,
-                        Title = g.Title
-
-                    }
-                );
+                return null;
             }
 
+            var res = response.Select(x => BsonSerializer.Deserialize<GameResponseModel>(x)).ToList();
 
-            return await Task.Run(() => list);
+            return res;
 
         }
     }

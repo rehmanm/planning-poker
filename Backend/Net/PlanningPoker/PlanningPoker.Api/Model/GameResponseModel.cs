@@ -6,7 +6,7 @@ namespace PlanningPoker.Api.Model
 {
     public class GameResponseModel
     {
-        public string Id { get; set; }
+        public string GameId { get; set; }
 
         public string Title { get; set; }
 

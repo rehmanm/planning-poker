@@ -20,7 +20,7 @@
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
-    "@aspnet/signalr": "^3.0.0-preview6.19307.2",
+    "@microsoft/signalr": "^5.0.1",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "@ngrx/effects": "^9.2.0",
     "@ngrx/store": "^9.2.0",

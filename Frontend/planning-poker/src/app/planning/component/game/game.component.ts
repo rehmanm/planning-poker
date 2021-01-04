@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 
 import { PlanningPageActions } from '../../store/actions';
 import { PlanningSelectors } from '../../store/selectors';
-import { SignalrDefaultService } from '../../services/signalr-default.service';
+import { SignalrDefaultService } from '../../services';
 import { Game, UserStory, User } from '../../model';
 
 @Component({
@@ -63,7 +63,6 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   userStoryStarted(id: number) {
-    console.log('event captured', id);
     this.gameStarted = true;
 
     this.userStory$ = this.userStories$.pipe(
@@ -79,7 +78,6 @@ export class GameComponent implements OnInit, OnDestroy {
         })
       )
     );
-
     this.signalRDefaultService.startUserStoryPlay(u);
   }
 

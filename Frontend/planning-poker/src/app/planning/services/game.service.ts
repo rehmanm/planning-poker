@@ -9,7 +9,6 @@ import { Game } from '../model';
 })
 export class GameService {
   private gameUrl: string = '/games';
-  private userStoryUrl: string = '/userStories';
 
   private games: Game[];
 
@@ -33,12 +32,6 @@ export class GameService {
       tap((data) => console.log('loading game', data)),
       catchError(this.handleError)
     );
-  }
-
-  updateStoryPoint(userStoryId: number, storyPoints: string) {
-    const url = `${this.userStoryUrl}/${userStoryId}/storyPoint`;
-
-    return this.http.patch(url, { storyPoints });
   }
 
   private handleError(err) {
